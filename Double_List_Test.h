@@ -98,3 +98,194 @@ void Double_List_Test<Type>::process() {
 		} else {
 			std::cout << "Failed back(): expecting '" << expected_back << "' but got '" << actual_back << "'" << std::endl;
 		}
+	} else if ( command == "back!" ) {
+		//Back of an empty list - catch an exception
+
+		Type actual_back;
+
+		try {
+			actual_back = object->back();
+			std::cout << "Failed back(): expecting an exception but got '" << actual_back << "'" << std::endl;
+		} catch( underflow ) {
+			std::cout << "Okay" << std::endl;
+		} catch (...) {
+			std::cout << "Failed back(): expecting an underflow exception but got a different exception" << std::endl;
+		}
+	} else if ( command == "begin" ) {
+		//Checks that the begin is not 'nullptr', and if it is not,
+		//the next object gives the number of commands which should
+		//be tested by the Double_Node_Test
+
+		typename Double_Linked_List<Type>::Double_node *actual_begin = object->begin();
+
+		if ( actual_begin == nullptr ) {
+			std::cout << "Failed begin(): expecting non-zero begin pointer" << std::endl;
+		} else {
+			std::cout << "Okay" << std::endl;
+
+			Double_Node_Test<Type> tester( actual_begin );
+
+			tester.run();
+		}
+	} else if ( command == "end" ) {
+		//Checks that the end is not 'nullptr', and if it is not,
+		//the next object gives the number of commands which should
+		//be tested by the Double_Node_Test
+
+		typename Double_Linked_List<Type>::Double_node *actual_end = object->end();
+
+		if ( actual_end == nullptr ) {
+			std::cout << "Failed end(): expecting non-zero end pointer" << std::endl;
+		} else {
+			std::cout << "Okay" << std::endl;
+
+			Double_Node_Test<Type> tester( actual_end );
+
+			tester.run();
+		}
+	} else if ( command == "revbegin" ) {
+		//Checks that the revbegin is not 'nullptr', and if it is not,
+		//the next object gives the number of commands which should
+		//be tested by the Double_Node_Test
+
+		typename Double_Linked_List<Type>::Double_node *actual_revbegin = object->revbegin();
+
+		if ( actual_revbegin == nullptr ) {
+			std::cout << "Failed revbegin(): expecting non-zero revbegin pointer" << std::endl;
+		} else {
+			std::cout << "Okay" << std::endl;
+
+			Double_Node_Test<Type> tester( actual_revbegin );
+
+			tester.run();
+		}
+	} else if ( command == "revend" ) {
+		//Checks that the revend is not 'nullptr', and if it is not,
+		//the next object gives the number of commands which should
+		//be tested by the Double_Node_Test
+
+		typename Double_Linked_List<Type>::Double_node *actual_revend = object->revend();
+
+		if ( actual_revend == nullptr ) {
+			std::cout << "Failed revend(): expecting non-zero revend pointer" << std::endl;
+		} else {
+			std::cout << "Okay" << std::endl;
+
+			Double_Node_Test<Type> tester( actual_revend );
+
+			tester.run();
+		}
+	} else if ( command == "find" ) {
+		Type value;
+		std::cin >> value;
+
+		typename Double_Linked_List<Type>::Double_node *actual_find = object->find( value );
+
+		if ( actual_find == nullptr ) {
+			std::cout << "Failed find(" << value << "): expecting non-zero find pointer" << std::endl;
+		} else {
+			std::cout << "Okay" << std::endl;
+
+			Double_Node_Test<Type> tester( actual_find );
+
+			tester.run();
+		}
+	} else if ( command == "count" ) {
+		//Check if the next object read in is in the linked list
+
+		Type value;
+		int expected_count;
+
+		std::cin >> value;
+		std::cin >> expected_count;
+
+		if ( object->count( value ) == expected_count ) {
+			std::cout << "Okay" << std::endl;
+		} else {
+			if ( expected_count == 1 ) {
+				std::cout << "Failed count(): expecting '" << value << "' to be in the list" << std::endl;
+			} else {
+				std::cout << "Failed count(): not expecting '" << value << "' to be in the list" << std::endl;
+			}
+		}
+	} else if ( command == "push_front" ) {
+		//Push the next object read to the front of the linked list
+
+		Type n;
+
+		std::cin >> n;
+
+		object->push_front( n );
+		std::cout << "Okay" << std::endl;
+	} else if ( command == "push_back" ) {
+		//Push the next object read to the back of the linked list
+
+		Type n;
+
+		std::cin >> n;
+
+		object->push_back( n );
+		std::cout << "Okay" << std::endl;
+	} else if ( command == "pop_front" ) {
+		//Pop the first object from the linked list
+		object->pop_front();
+		std::cout << "Okay" << std::endl;
+	} else if ( command == "pop_front!" ) {
+		//Pop from an empty list - catch an exception
+
+		try {
+			object->pop_front();
+			std::cout << "Failed pop_front(): expecting an exception but got none" << std::endl;
+		} catch( underflow ) {
+			std::cout << "Okay" << std::endl;
+		} catch (...) {
+			std::cout << "Failed pop_front(): expecting an underflow exception but got a different exception" << std::endl;
+		}
+	} else if ( command == "pop_back" ) {
+		//Pop the last object from the linked list
+		object->pop_back();
+		std::cout << "Okay" << std::endl;
+	} else if ( command == "pop_back!" ) {
+		//Pop from an empty list - catch an exception
+
+		try {
+			object->pop_back();
+			std::cout << "Failed pop_front(): expecting an exception but got none" << std::endl;
+		} catch( underflow ) {
+			std::cout << "Okay" << std::endl;
+		} catch (...) {
+			std::cout << "Failed pop_back(): expecting an underflow exception but got a different exception" << std::endl;
+		}
+	} else if ( command == "erase" ) {
+		Type n;
+		int expected_count;
+
+		std::cin >> n;
+		std::cin >> expected_count;
+
+		int actual_count = object->erase( n );
+
+		if ( actual_count == expected_count ) {
+			std::cout << "Okay" << std::endl;
+		} else {
+			std::cout << "Failed erase( " << n << " ): expecting '" << expected_count << "', but got " << actual_count << std::endl;
+		}
+	} else if ( command == "assign" ) {
+		Double_Linked_List<Type> *new_object = new Double_Linked_List<Type>();
+
+		*new_object = *(object);
+
+		std::cout << "Okay" << std::endl;
+
+		Double_List_Test<Type> tester( new_object );
+
+		tester.run();
+	} else if ( command == "cout" ) {
+		std::cout << *object << std::endl;
+	} else {
+		std::cout << command << ": Command not found." << std::endl;
+	}
+}
+
+#endif
+
