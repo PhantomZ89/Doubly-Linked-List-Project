@@ -20,7 +20,7 @@ class Double_List_Test:public Tester< Double_Linked_List<Type> > {
 
 template <typename Type>
 Double_List_Test<Type>::Double_List_Test( Double_Linked_List<Type> *obj ):
-Tester< Double_Linked_List<Type> >( obj ) {
+test< Double_Linked_List<Type> >( obj ) {
 	// empty
 }
 
@@ -123,7 +123,7 @@ void Double_List_Test<Type>::process() {
 		} else {
 			std::cout << "Okay" << std::endl;
 
-			Double_Node_Test<Type> tester( actual_begin );
+			Double_Node_Test<Type> test( actual_begin );
 
 			tester.run();
 		}
