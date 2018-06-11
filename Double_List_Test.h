@@ -9,9 +9,9 @@
 #include <iostream>
 
 template <typename Type>
-class Double_List_Test:public Tester< Double_Linked_List<Type> > {
-	using Tester< Double_Linked_List<Type> >::object;
-	using Tester< Double_Linked_List<Type> >::command;
+class Double_List_Test:public test< Double_Linked_List<Type> > {
+	using test< Double_Linked_List<Type> >::object;
+	using test< Double_Linked_List<Type> >::command;
 
 	public:
 		Double_List_Test( Double_Linked_List<Type> *obj = nullptr );
@@ -21,7 +21,7 @@ class Double_List_Test:public Tester< Double_Linked_List<Type> > {
 template <typename Type>
 Double_List_Test<Type>::Double_List_Test( Double_Linked_List<Type> *obj ):
 test< Double_Linked_List<Type> >( obj ) {
-	// empty
+	//empty
 }
 
 template <typename Type>
@@ -123,7 +123,7 @@ void Double_List_Test<Type>::process() {
 		} else {
 			std::cout << "Okay" << std::endl;
 
-			Double_Node_Test<Type> test( actual_begin );
+			Double_Node_Test<Type> tester( actual_begin );
 
 			tester.run();
 		}
