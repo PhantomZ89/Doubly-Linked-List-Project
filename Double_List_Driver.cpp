@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "Test.h"
 #include "Double_List_Test.h"
-#include "Double_Node_Test.h"
 
 int main( int argc, char *argv[] ) {
 	if ( argc > 2 ) {
