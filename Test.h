@@ -14,14 +14,14 @@ class test {
 		std::string command;
 
 	public:
-		test( Class_name *obj = nullptr );
+		test(Class_name *obj = nullptr);
 		int run();
 		virtual void process() = 0;
 };
 
 template <class Class_name>
-test<Class_name>::test( Class_name *obj ):
-object( obj ) {
+test<Class_name>::test(Class_name *obj):
+object(obj) {
 	//emtpy constructor
 }
 
@@ -34,10 +34,10 @@ int test<Class_name>::run() {
 
 	const static std::string prompt = " % ";
 
-	while ( true ) {
+	while(true) {
 		//Terminate if there is an end-of-file or the user types 'exit'
 
-		if ( std::cin.eof() ) {
+		if(std::cin.eof()) {
 			break;
 		}
 
@@ -47,9 +47,9 @@ int test<Class_name>::run() {
 		std::cin >> command;
 
 		//Remove any comments
-		if ( command.substr( 0, 2 ) == "//" ) {
+		if(command.substr(0, 2) == "//") {
 			char comment[1024];
-			std::cin.getline( comment, 1024 );
+			std::cin.getline(comment, 1024);
 
 			std::cout << command << comment << std::endl;
 			continue;
@@ -57,7 +57,7 @@ int test<Class_name>::run() {
 
 		//Terminate if there is an end-of-file or the user types 'exit'
 
-		if ( std::cin.eof() ) {
+		if(std::cin.eof()) {
 			std::cout << "Exiting..." << std::endl;
 			break;
 		}
@@ -67,19 +67,19 @@ int test<Class_name>::run() {
 		//If user enters !n where n is a number,  (1 <= n < count)
 		//set the command ot be the nth command
 
-		if ( command == "!!" ) {
-			if ( mem_alloc::count == 1 ) {
+		if(command == "!!") {
+			if(mem_alloc::count == 1) {
 				std::cout << "Event not found" << std::endl;
 				continue;
 			}
 
 			command = mem_alloc::history[mem_alloc::count - 1];
-		} else if ( command[0] == '!' ) {
+		} else if(command[0] == '!') {
 			int n;
-			std::istringstream number( command.substr( 1, command.length() - 1 ) );
+			std::istringstream number(command.substr(1, command.length() - 1));
 			number >> n;
 
-			if ( n <= 0 || n >= mem_alloc::count || n >= 1000 ) {
+			if(n <= 0 || n >= mem_alloc::count || n >= 1000) {
 				std::cout << "Event not found" << std::endl;
 				continue;
 			}
@@ -88,7 +88,7 @@ int test<Class_name>::run() {
 		}
 
 		//Only track the first 1001 commands
-		if ( mem_alloc::count < 1000 ) {
+		if(mem_alloc::count < 1000) {
 			mem_alloc::history[mem_alloc::count] = command;
 		}
 
@@ -97,24 +97,24 @@ int test<Class_name>::run() {
 
 		//There are five key commands
 
-		if ( command == "exit" ) {
+		if(command == "exit") {
 			std::cout << "Okay" << std::endl;
 			mem_alloc::allocation_table.stop_recording();
 			break;
-		} else if ( command == "delete" ) {
+		} else if(command == "delete") {
 			delete object;
 			object = nullptr;
 			std::cout << "Okay" << std::endl;
-		} else if ( command == "summary" ) {
+		} else if(command == "summary") {
 			mem_alloc::allocation_table.summary();
-		} else if ( command == "details" ) {
+		} else if(command == "details") {
 			mem_alloc::allocation_table.details();
-		} else if ( command == "memory" ) {
+		} else if(command == "memory") {
 			int n;
 
 			std::cin >> n;
 
-			if ( n == mem_alloc::allocation_table.memory_alloc() ) {
+			if(n == mem_alloc::allocation_table.memory_alloc()) {
 				std::cout << "Okay" << std::endl;
 			} else {
 				std::cout << "Failure in memory allocation: expecting "
@@ -122,15 +122,15 @@ int test<Class_name>::run() {
 				          << mem_alloc::allocation_table.memory_alloc()
 				          << " bytes were allocated" << std::endl;
 			}
-		} else if ( command == "memory_store" ) {
+		} else if(command == "memory_store") {
 			mem_alloc::allocation_table.memory_store();
 			std::cout << "Okay" << std::endl;
-		} else if ( command == "memory_change" ) {
+		} else if(command == "memory_change") {
 			int n;
 
 			std::cin >> n;
 
-			mem_alloc::allocation_table.memory_change( n );
+			mem_alloc::allocation_table.memory_change(n);
 		} else {
 			process();
 		}
