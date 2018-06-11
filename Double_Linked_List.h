@@ -40,7 +40,7 @@ class Double_Linked_List {
 		Double_node *find( Type const & ) const;
 		int count( Type const & ) const;
 
-		// Mutators
+		//Mutators
 		void swap( Double_Linked_List & );
 		Double_Linked_List &operator=( Double_Linked_List );
 		Double_Linked_List &operator=( Double_Linked_List && );
